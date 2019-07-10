@@ -1,0 +1,12 @@
+html,body{
+    height: 100%;
+}
+.flexbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.medio{
+    width: 50%;
+    height: 50%;
+}

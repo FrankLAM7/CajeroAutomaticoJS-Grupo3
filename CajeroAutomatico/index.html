@@ -9,13 +9,30 @@
     <!-- Bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-9NlqO4dP5KfioUGS568UFwM3lbWf3Uj3Qb7FBHuIuhLoDp3ZgAqPE1/MYLEBPZYM" crossorigin="anonymous">
-    <link rel="stylesheet" href="./estilos.css">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <script src="./js/main.js"></script>
 </head>
   <body>
     <header>
-
+      
     </header>
-    <main class="container" style="background-color: #68C3D6; height: 100%">
+    <main class="container flexbox" style="background-color: #68C3D6; height: 100%">
+      <div class="medio mt-5">
+        <div class="jumbotron">
+          <h1 class="display-3">TU CAJERO!</h1>
+          <br><br><br>
+          <div class="form-group">
+              <label for="inputDni">Ingrese DNI</label>
+              <input type="text" class="form-control" id="inputDni" aria-describedby="" placeholder="dni">
+              <small id="avisoDni" class="form-text text-muted">We'll never share your DNI with anyone else.</small>
+            </div>
+          <hr class="my-4" for="inputCuenta">
+          <!-- input -->
+          <p class="lead">
+            <button class="btn btn-primary btn-lg" id="btnIngresar">Ingresar</button>
+          </p>
+        </div>
+      </div>
         
     </main>
     <!-- Optional JavaScript -->
