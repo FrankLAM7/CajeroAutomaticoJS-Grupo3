@@ -6,6 +6,6 @@ window.onload = function(){
     btnIngresar.onclick = (e)=>{
         e.preventDefault();
         alert(`Bienvenido: ${inputDni.value}`);
-        window.location ="./cuentas.html";
+        window.location =`./cuentas.html?dni=${inputDni.value}`;
     }
 }
