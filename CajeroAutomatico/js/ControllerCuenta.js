@@ -13,7 +13,7 @@ function depositar(monto, cuenta) {
         const element = bdCajero[i];
         if (element.cuenta === cuenta) {
             //console.log(element);
-            bdCajero[i].monto = bdCajero[i].monto + monto;
+            bdCajero[i].monto = parseFloat(bdCajero[i].monto) + parseFloat(monto);
             //console.log(element);
             //localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
             //return element;
@@ -96,9 +96,9 @@ function transferir(monto, cuentaOrigen, cuentaDestino) {
             //return "Depósito Exitoso";
         }
     }
-    console.log("Antes de transferencia: ", bdCajero);
+    // console.log("Antes de transferencia: ", bdCajero);
     localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
-    console.log("Después de transferencia",bdCajero);
+    // console.log("Después de transferencia",bdCajero);
     
     return "Transferencia exitosa";
 }

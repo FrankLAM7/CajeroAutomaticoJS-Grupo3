@@ -9,17 +9,19 @@ window.onload = function(){
     var dni = getParameterByName("dni");
     var cuenta = getParameterByName("cuenta");
 
-    document.getElementById("cuenta").innerHTML = `Cta. ${cuenta}`;
-    var objCuenta = buscarXCuenta(cuenta); 
-    if(objCuenta != null){
-        document.getElementById("saldoCuenta").innerHTML = `Saldo de Cuenta: ${objCuenta.monto}`;
-    }else{
-        document.getElementById("saldoCuenta").innerHTML = `NO SE ENCONTRO LA CUENTA`;
-    }
-    
+    var monto = document.getElementById("monto");
+    var cuentaDestino = document.getElementById("cuentaDestino");
 
     var btnOtraOperacion = document.getElementById("btnOtraOperacion");
     var btnSalir = document.getElementById("btnSalir");
+
+    var btnDepositar= document.getElementById("btnDepositar");
+
+    btnDepositar.onclick = (e)=>{
+        e.preventDefault();
+        var mensaje = transferir(monto, cuenta, cuentaDestino.value);
+        alert(mensaje);
+    }
 
     btnOtraOperacion.onclick =function(e){
         e.preventDefault();

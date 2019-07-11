@@ -12,19 +12,20 @@ window.onload =()=>{
     /*
         EN EL ARREGLO DE CUENTAS DEBERIAN LLEGAR LAS CUETAS LEIDAS DESDE UN ARCHIVO
     */
+
     
-    var cuentas = ["123-4545-487","45454454-8888"];
+    var cuentas = buscarXDni(dni);
 
     for (let i = 0; i < cuentas.length; i++) {
         var btnCuenta = document.createElement("button");
         btnCuenta.className ="btn btn-success btn-lg btn-block";
-        btnCuenta.innerHTML =`${i+1}.-  ${cuentas[i]}`;
+        btnCuenta.innerHTML =`${i+1}.-  ${cuentas[i].cuenta}`;
         listadoCuentas.appendChild(btnCuenta);
         
         btnCuenta.onclick = (e)=>{
             e.preventDefault();
-            alert(`Seleccionaste: ${cuentas[i]}`);
-            window.location =`./operaciones.html?dni=${dni}&cuenta=${cuentas[i]}`;
+            alert(`Seleccionaste: ${cuentas[i].cuenta}`);
+            window.location =`./operaciones.html?dni=${dni}&cuenta=${cuentas[i].cuenta}`;
         }
     }
 

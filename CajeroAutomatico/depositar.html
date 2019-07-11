@@ -12,7 +12,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9NlqO4dP5KfioUGS568UFwM3lbWf3Uj3Qb7FBHuIuhLoDp3ZgAqPE1/MYLEBPZYM" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/estilos.css">
-
 </head>
 
 <body>
@@ -21,7 +20,7 @@
             <p id="mostarNumeroDeCuentaDeposito">
                 <strong>
                     <pre>
-                                                            <h1>    Numero de cuenta : <a>123-3344-2222 </a> </h1></strong></pre>
+                                                            <h1>    Numero de cuenta : <a id="nroCuenta">123-3344-2222 </a> </h1></strong></pre>
             </p>
         </div>
     </header>
@@ -35,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="montoDeposito">
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>
@@ -44,13 +43,12 @@
                 </div>
             </div>
             <div id="botonesDepositar " class="d-flex flex-wrap">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Depositar</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="btnDepositar">Depositar</button>
                 <div class="d-flex bd-highlight mb-3">
-                    <a href="./operaciones.html" style="text-decoration: none"><button type="button" class="btn btn-warning btn-lg btn-block">Realizar
-                            otra
-                            operacion</button></a>
-                    <a href="./gracias.html" style="text-decoration: none"><button type="button"
-                            class="btn btn-danger btn-lg btn-block align-self-end"> Salir</button></a>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-warning btn-lg" id="btnOtraOperacion">Realizar Otra Operacion</button>
+                        <button type="button" class="btn btn-danger btn-lg" id="btnSalir">Salir</button>
+                </div>
                 </div>
 
             </div>
@@ -69,6 +67,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
+        <script src="./js/UsuarioCuenta.js"></script>
+        <script src="./js/ControllerDatos.js"></script>
+        <script src="./js/ControllerCuenta.js"></script>
+        <script src="./js/depositar.js"></script>
 </body>
 
 </html>
