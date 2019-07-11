@@ -14,7 +14,7 @@ class ControllerCuentaV01{
         //     }
     }
 
-transferenciaDinero(ctaOrigen, ctaDestino, monto)
+    transferenciaDinero = (ctaOrigen, ctaDestino, monto)=>
         {
             usuario = new UsuarioCuenta();
             bandera = false;
@@ -75,7 +75,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             return "No se realizo la transacción";
         }
 
-        retirarDinero(monto, cuenta)
+        retirarDinero = (monto, cuenta)=>
         {
             //UsuarioCuenta uCuenta = buscarXCuenta(cuenta);
             
@@ -93,7 +93,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             return false;
         }
 
-        depositarDinero(monto, cuenta)
+        depositarDinero = (monto, cuenta)=>
         {
         	if(monto<0){
                 return false;
@@ -109,7 +109,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             return false;
         }
 
-        buscarXCuenta(cuenta)
+        buscarXCuenta = (cuenta)=>
         {
 
             for(let cont=0;cont<usuarios.length;++cont){
@@ -121,7 +121,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             return null;
         }
 
-        buscarXDni(dni)
+        buscarXDni=(dni)=>
         {
             lista = [];
             obj;
@@ -149,7 +149,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
 
     }
 
-    execute(){
+    execute = ()=>{
         this.get_data().then((result) => {
             // data = result;
             console.log(result);
@@ -206,7 +206,7 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
 
     // Leer el archivo de texto
 
-    txtAObjetos(data){
+    txtAObjetos = (data)=>{
         var lineas = data.split("\n");
         var linea;
         var usuarios = []; 
