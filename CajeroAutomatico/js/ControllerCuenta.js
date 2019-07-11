@@ -1,56 +1,122 @@
-class ControllerCuenta{
-    usuarios;
-    rutaArchivo;
+let bdCajero = localStorage.getItem('bdCajero');
+bdCajero = JSON.parse(bdCajero);
 
-    constructor(rutaArchivo){
-       
-        this.rutaArchivo = rutaArchivo;
-
-        this.CargarLista();
-    }
-
-    // Cargar la lista de Objetos y asignarle a su propiedad
-    CargarLista(){
-        this.leerArchivo();
+function depositar(monto, cuenta) {
+    console.log("Función depositar");
+    if (monto < 0) {
+        return "Error! monto negativo";
     }
     
-    // Leer el archivo de texto
-    leerArchivo(){
-        $.ajax({
-            type: "GET",
-            url: `${this.rutaArchivo}`,
-            //url: "./data/bd.txt",
-            data: "data",
-            dataType: "text",
-            success: function (response) {
-                //console.log(response);
-                //var linea = response.split("\n");
-                //console.log(linea);
-                txtAObjetos(response)
-            }
-        });
-    }
+    //console.log("Antes del depósito: ",localStorage.getItem('bdCajero'));
 
-    // Convertir la lista del TXT a Objetos UsuarioCuenta
-    txtAObjetos(data) {
-        var lineas = data.split("\n");
-        var linea;
-        var usuarios = []; 
-    
-        for (let i = 1; i < lineas.length; i++) {
-            linea = lineas[i].split(',');
-            var usuario = new UsuarioCuenta();
-            usuario.dni = linea[0];
-            usuario.nombres = linea[1];
-            usuario.apellidos = linea[2];
-            usuario.cuenta = linea[3];
-            usuario.monto = linea[4];
-            usuario.moneda = linea[5];
-            usuarios.push(usuario);
+    for (let i = 0; i < bdCajero.length; i++) {
+        const element = bdCajero[i];
+        if (element.cuenta === cuenta) {
+            //console.log(element);
+            bdCajero[i].monto = bdCajero[i].monto + monto;
+            //console.log(element);
+            //localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
+            //return element;
         }
-        console.log(usuarios);
-        // Asignando la lista a la propiedad de usuarios;
-        this.usuarios = usuarios;
     }
+    localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
+    /* console.log(bdCajero);*/
+    //console.log("Después del depósito: ",localStorage.getItem('bdCajero'));
+    
 
+    return "Depósito Exitoso";
+}
+
+function buscarXDni(dni){
+    console.log("Función buscarXDni");
+    if (dni.length < 1) {
+        return "Ingrese un dni";
+    }
+    let cuentas = [];
+    for (let i = 0; i < bdCajero.length; i++) {
+        const item = bdCajero[i];
+        if (item.dni === dni) {
+            cuentas.push(item);
+        }
+    }
+    return cuentas;
+}
+
+function retirar(monto, cuenta){
+    console.log("Función retirar");
+    if (monto < 0) {
+        return "Error! monto negativo";
+    }
+    
+    for (let i = 0; i < bdCajero.length; i++) {
+        const element = bdCajero[i];
+        if (element.cuenta === cuenta) {
+            if (monto > element.cuenta) {
+                return "Error! monto supera el saldo";
+            }
+            //console.log(element);
+            bdCajero[i].monto = bdCajero[i].monto - monto;
+            //console.log(element);
+            //localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
+            //return element;
+        }
+    }
+    localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
+    return "Retiro exitoso";
+    //console.log(bdCajero);
+    //console.log(localStorage.getItem('bdCajero'));
+}
+
+function transferir(monto, cuentaOrigen, cuentaDestino) {
+    console.log("Función transferir");
+    
+    // Cuenta origen
+    let ctaO = buscarXCuenta(cuentaOrigen);
+    if (ctaO === null) {
+        return "Error! La cuenta origen no existe";
+    }
+    for (let i = 0; i < bdCajero.length; i++) {
+        const item = bdCajero[i];
+        //Verificar si existe la cuenta origen
+        if (item.cuenta === cuentaOrigen) {
+            bdCajero[i].monto -= monto;
+            //return "Retiro Exitoso";
+        }
+    }
+    // Cuenta destino
+    let ctaD = buscarXCuenta(cuentaDestino);
+    if (ctaD === null) {
+        return "Error! la cuenta destino no existe";
+    }
+    for (let i = 0; i < bdCajero.length; i++) {
+        const it = bdCajero[i];
+        // Verificar cuenta destino
+        if (it.cuenta === cuentaDestino) {
+            bdCajero[i].monto += monto;
+            //return "Depósito Exitoso";
+        }
+    }
+    console.log("Antes de transferencia: ", bdCajero);
+    localStorage.setItem('bdCajero',JSON.stringify(bdCajero));
+    console.log("Después de transferencia",bdCajero);
+    
+    return "Transferencia exitosa";
+}
+
+function buscarXCuenta(cuenta) {
+    console.log("Función buscaxCuenta");
+    let bdCaja = localStorage.getItem('bdCajero');
+    bdCaja = JSON.parse(bdCaja);
+    
+    for (let i = 0; i < bdCaja.length; i++) {
+        if (bdCaja[i].cuenta === cuenta) {
+            //ctaEncontrada = item;
+            //return item;
+            //return console.log(item);
+            return bdCaja[i];
+            
+        }
+        
+    }
+    return null;
 }

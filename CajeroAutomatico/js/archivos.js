@@ -1,42 +1,22 @@
 window.onload = function(){
-    console.log("Hola Mundo");
-    //leerArchivo();
-    var contCuentas = new ControllerCuenta("./data/bd.txt");
-    console.log(contCuentas.usuarios);
-        
-}
+    //Generamos el localStorage
+    let contDatos = new ControllerDatos();
 
-function leerArchivo(){
-    $.ajax({
-        type: "GET",
-        url: "./data/bd.txt",
-        data: "data",
-        dataType: "text",
-        success: function (response) {
-            console.log(response);
-            var linea = response.split("\n");
-            console.log(linea);
-            txtAObjetos(response)
-        }
-    });
-}
-
-function txtAObjetos(data) {
-    var lineas = data.split("\n");
-    var linea;
-    var usuarios = []; 
-
-    for (let i = 1; i < lineas.length; i++) {
-        linea = lineas[i].split(',');
-        var usuario = new UsuarioCuenta();
-        usuario.dni = linea[0];
-        usuario.nombres = linea[1];
-        usuario.apellidos = linea[2];
-        usuario.cuenta = linea[3];
-        usuario.monto = linea[4];
-        usuario.moneda = linea[5];
-        usuarios.push(usuario);
-    }
-    console.log(usuarios);
+    //Ejecutando la función Depositar
+    /* depositar(10,"961-7976504");
+    console.log(depositar(10,"961-7976504")); */
     
+    // Ejecutando la función Retirar
+    /* console.log(buscarXCuenta('961-7976504'));
+    console.log("Resultado de retirar: ", retirar(15, '961-7976504'));
+    console.log(buscarXCuenta('961-7976504')); */
+
+    // Ejecutando la función Transferencia
+    /* console.log("CO: ",buscarXCuenta('961-7976504'));
+    console.log("CD: ",buscarXCuenta('961-7976505'));
+    console.log("Resultado de la transferencia:", transferir(30,"61-7976504","961-7976505"));
+    console.log("CO: ",buscarXCuenta('961-7976504'));
+    console.log("CD: ",buscarXCuenta('961-7976505')); */
+    
+
 }
