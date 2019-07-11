@@ -1,22 +1,17 @@
-    class ControllerCuentaV01{
-    usuarioCuentas=[];
-    archivo;
+class ControllerCuentaV01{
 
-    constructor(archivo)
-    {
-            usuarioCuentas = [];
-            this.archivo = archivo;
+    usuarios=[];
+    rutaArchivo;
 
-            CargarLista();
-    }
+    // usuarioCuentas=[]
 
     listarTodos()
     {
-        Console.log("Mostrando lista");
-            foreach (item in usuarioCuentas)
-            {
-                Console.log(item);
-            }
+        // Console.log("Mostrando lista");
+        //     foreach (item in usuarios)
+        //     {
+        //         Console.log(item);
+        //     }
     }
 
 transferenciaDinero(ctaOrigen, ctaDestino, monto)
@@ -55,20 +50,19 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
                 {
                     if (monedacta1 == monedacta2)
                     {
-                        foreach (item in usuarioCuentas)
-                        {
-                            if (item.cuenta.Equals(ctaOrigen.Trim()))
-                            {
-                                item.monto = item.monto - monto;
+
+                        for(let cont=0;cont<usuarios.length;++cont){
+                            if(usuarios[cont].Equals(ctaOrigen.Trim())){
+                                usuarios[cont].monto = usuarios[cont].monto - monto; 
                             }
                         }
-                        foreach (item in usuarioCuentas)
-                        {
-                            if (item.cuenta.Equals(ctaDestino.Trim()))
-                            {
-                                item.monto = item.monto + monto;
+
+                        for(let cont=0;cont<usuarios.length;++cont){
+                            if(usuarios[cont].cuenta.Equals(ctaDestino.Trim())){
+                                usuarios[cont].monto = usuarios[cont].monto + monto;
                             }
                         }
+
                         return "La transacción se realizo con éxito";
                     }
                     else
@@ -80,51 +74,50 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             }
             return "No se realizo la transacción";
         }
+
         retirarDinero(monto, cuenta)
         {
             //UsuarioCuenta uCuenta = buscarXCuenta(cuenta);
-      
-            foreach (item in usuarioCuentas)
-            {
-                if (item.cuenta.Equals(cuenta.Trim()))
+            
+            for(let cont=0;cont<usuarios.length;++cont){
+                if (usuarios[cont].cuenta.Equals(cuenta.Trim()))
                 {
-                	if(monto>item.monto){
+                	if(monto>usuarios[cont].monto){
                 		return false;
                 	}
-                    item.monto = item.monto - monto;
+                    usuarios[cont].monto = usuarios[cont].monto - monto;
                     return true;
                 }
             }
             
             return false;
         }
+
         depositarDinero(monto, cuenta)
         {
         	if(monto<0){
                 return false;
             }
-        	
-            foreach (item in usuarioCuentas)
-            {
-                if (item.cuenta.Equals(cuenta.Trim()))
-                {
-                    item.monto = item.monto + monto;
+            
+            for(let cont=0;cont<usuarios.length;++cont){
+                if(usuarios[cont].cuenta.Equals(cuenta.Trim())){
+                    usuarios[cont].monto = usuarios[cont].monto + monto;
                     return true;
                 }
             }
+
             return false;
         }
 
         buscarXCuenta(cuenta)
         {
-            foreach (item in usuarioCuentas)
-            {
-                if (item.cuenta.Equals(cuenta.Trim()))
-                {
-                    return item;
-                    
+
+            for(let cont=0;cont<usuarios.length;++cont){
+                if(usuarios[cont].cuenta.Equals(cuenta.Trim())){
+                    return usuarios[cont];
                 }
             }
+
             return null;
         }
 
@@ -133,18 +126,111 @@ transferenciaDinero(ctaOrigen, ctaDestino, monto)
             lista = [];
             obj;
 
-            foreach (item in usuarioCuentas)
-            {
-                if (item.dni == dni.Trim())
-                {
-                    Console.WriteLine(item);
+            for(let cont=0;cont<usuarios.length;++cont){
+                if(usuarios[cont].dni == dni.Trim()){
+                    console.log(usuarios[cont]);
                     obj = new UsuarioCuenta();
                     obj = item;
                     lista.push(obj);
                 }
             }
+
             return lista;
         }
+
+// ------------------------------------section-----------------
+
+
+    constructor(rutaArchivo){
+       
+        this.rutaArchivo = rutaArchivo;
+
+        // this.CargarLista();
+
+    }
+
+    execute(){
+        this.get_data().then((result) => {
+            // data = result;
+            console.log(result);
+
+            this.txtAObjetos(result);
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    // Cargar la lista de Objetos y asignarle a su propiedad
+    CargarLista(){
+        this.leerArchivo();
+    }
+
+    // data;
+
+    get_data = () => {
+        return new Promise((resolve, reject) => {
+
+            $.ajax({
+                type: "GET",
+                // url: "http://5d1cd479f31e7f00147ebb74.mockapi.io/users",
+                url:`${this.rutaArchivo}`,
+                data: null,
+                success: function (response) {
+                    // console.log(response);
+                    resolve(response);
+                    // this.txtAObjetos(response);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    leerArchivo(){
+        $.ajax({
+            type: "GET",
+            url: `${this.rutaArchivo}`,
+            //url: "./data/bd.txt",
+            data: "data",
+            dataType: "text",
+            success: function (response) {
+                //console.log(response);
+                //var linea = response.split("\n");
+                //console.log(linea);
+                txtAObjetos(response);
+            }
+        });
+    }
+
+
+    // Leer el archivo de texto
+
+    txtAObjetos(data){
+        var lineas = data.split("\n");
+        var linea;
+        var usuarios = []; 
+    
+        for (let i = 1; i < lineas.length; i++) {
+            linea = lineas[i].split(',');
+            var usuario = new UsuarioCuenta();
+            usuario.dni = linea[0];
+            usuario.nombres = linea[1];
+            usuario.apellidos = linea[2];
+            usuario.cuenta = linea[3];
+            usuario.monto = linea[4];
+            usuario.moneda = linea[5];
+            usuarios.push(usuario);
+        }
+        console.log(usuarios);
+        // Asignando la lista a la propiedad de usuarios;
+        this.usuarios = usuarios;
+
+        return null;
+    }
+
+    // Convertir la lista del TXT a Objetos UsuarioCuenta
+        
 
         // this section is used in the final version
         // EscribirLista()
