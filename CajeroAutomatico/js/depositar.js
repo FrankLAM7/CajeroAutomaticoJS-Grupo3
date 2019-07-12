@@ -20,6 +20,7 @@ window.onload = function(){
         e.preventDefault();
         var mensaje = depositar(montoDeposito.value, cuenta);
         alert(mensaje);
+        montoDeposito.value ="";
 
     }
     btnOtraOperacion.onclick =function(e){

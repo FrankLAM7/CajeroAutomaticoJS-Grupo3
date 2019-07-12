@@ -8,7 +8,7 @@ window.onload = function(){
 
     var dni = getParameterByName("dni");
     var cuenta = getParameterByName("cuenta");
-
+    
     var monto = document.getElementById("monto");
     var cuentaDestino = document.getElementById("cuentaDestino");
 
@@ -16,11 +16,13 @@ window.onload = function(){
     var btnSalir = document.getElementById("btnSalir");
 
     var btnDepositar= document.getElementById("btnDepositar");
-
+    document.getElementById("tacuen").innerHTML = cuenta;
     btnDepositar.onclick = (e)=>{
         e.preventDefault();
-        var mensaje = transferir(monto, cuenta, cuentaDestino.value);
+        var mensaje = transferir(monto.value, cuenta, cuentaDestino.value);
         alert(mensaje);
+        monto.value = "";
+        cuentaDestino.value = "";
     }
 
     btnOtraOperacion.onclick =function(e){

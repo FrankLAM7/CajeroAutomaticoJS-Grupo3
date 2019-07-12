@@ -21,6 +21,7 @@ window.onload = function(){
         e.preventDefault();
         var mensaje = retirar(montoRetirar.value, cuenta);
         alert(mensaje);
+        montoRetirar.value = "";
 
     }
     btnOtraOperacion.onclick =function(e){
